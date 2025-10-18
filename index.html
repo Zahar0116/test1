@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Plants vs Brainrots - DPS Calculator</title>
+  <title>Plants vs Brainrots DPS Calculator</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #f5f5f5;
+      background: #f0f8ff;
       padding: 20px;
       color: #333;
     }
@@ -17,11 +17,11 @@
       background: white;
       padding: 30px;
       border-radius: 10px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
     }
     h1 {
       text-align: center;
-      color: #4CAF50;
+      color: #2e8b57;
     }
     label {
       display: block;
@@ -38,19 +38,19 @@
     button {
       margin-top: 20px;
       width: 100%;
-      background: #4CAF50;
+      background: #2e8b57;
       color: white;
-      padding: 10px;
+      padding: 12px;
       border: none;
       border-radius: 5px;
       font-size: 16px;
       cursor: pointer;
     }
     button:hover {
-      background: #45a049;
+      background: #276747;
     }
     .result {
-      margin-top: 20px;
+      margin-top: 25px;
       font-size: 18px;
       text-align: center;
       font-weight: bold;
@@ -59,9 +59,9 @@
 </head>
 <body>
   <div class="container">
-    <h1>🌱 Plants vs Brainrots - DPS Calculator</h1>
+    <h1>🌱 PvB DPS Calculator</h1>
 
-    <label for="plant">Choose a Plant:</label>
+    <label for="plant">Select Plant:</label>
     <select id="plant">
       <option value="10">Cactus</option>
       <option value="25">Strawberry</option>
@@ -80,30 +80,43 @@
       <option value="20000">Mango</option>
     </select>
 
-    <label for="level">Level (L):</label>
+    <label for="level">Current Level (L):</label>
     <input type="number" id="level" min="0" value="0" />
 
-    <label for="weight">Weight in kg (K):</label>
+    <label for="weight">Weight (K) in kg:</label>
     <input type="number" id="weight" min="0" step="0.1" value="1" />
 
-    <button onclick="calculateDPS()">Calculate DPS</button>
+    <label for="wanted">Desired Level (W):</label>
+    <input type="number" id="wanted" min="0" value="0" />
+
+    <button onclick="calculateDPS()">Calculate</button>
 
     <div class="result" id="result"></div>
   </div>
 
   <script>
     function calculateDPS() {
-      const plantP = parseFloat(document.getElementById("plant").value);
+      const P = parseFloat(document.getElementById("plant").value);
       const L = parseFloat(document.getElementById("level").value);
       const K = parseFloat(document.getElementById("weight").value);
+      const W = parseFloat(document.getElementById("wanted").value);
+      const resultBox = document.getElementById("result");
 
-      if (isNaN(L) || isNaN(K)) {
-        document.getElementById("result").textContent = "Please enter valid numbers for level and weight.";
+      if (isNaN(P) || isNaN(L) || isNaN(K) || isNaN(W)) {
+        resultBox.textContent = "❌ Please enter all fields with valid numbers.";
         return;
       }
 
-      const DPS = plantP * K * Math.pow(1.48, L);
-      document.getElementById("result").textContent = `🌟 DPS: ${DPS.toFixed(2)}`;
+      // Main DPS formula
+      const DPS = P * K * Math.pow(1.48, L);
+
+      let additionalInfo = "";
+      if (L > W) {
+        const specialValue = L / Math.pow(1.48, L);
+        additionalInfo = `<br>📉 Since L > W: L / 1.48^L = ${specialValue.toFixed(4)}`;
+      }
+
+      resultBox.innerHTML = `🔥 DPS = ${DPS.toFixed(2)}${additionalInfo}`;
     }
   </script>
 </body>
