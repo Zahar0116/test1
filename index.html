@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Plants vs Brainrots - DPS Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      padding: 20px;
+      color: #333;
+    }
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    }
+    h1 {
+      text-align: center;
+      color: #4CAF50;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+    input, select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    button {
+      margin-top: 20px;
+      width: 100%;
+      background: #4CAF50;
+      color: white;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #45a049;
+    }
+    .result {
+      margin-top: 20px;
+      font-size: 18px;
+      text-align: center;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🌱 Plants vs Brainrots - DPS Calculator</h1>
+
+    <label for="plant">Choose a Plant:</label>
+    <select id="plant">
+      <option value="10">Cactus</option>
+      <option value="25">Strawberry</option>
+      <option value="55">Pumpkin</option>
+      <option value="115">Sunflower</option>
+      <option value="250">Dragon Fruit</option>
+      <option value="500">Eggplant</option>
+      <option value="750">Watermelon</option>
+      <option value="1750">Grape</option>
+      <option value="2200">Cocotank</option>
+      <option value="2250">Carnivorous Plant</option>
+      <option value="3500">Mr Carrot</option>
+      <option value="4500">Tomatiro</option>
+      <option value="12500">Shroombino</option>
+      <option value="12500">King Limone</option>
+      <option value="20000">Mango</option>
+    </select>
+
+    <label for="level">Level (L):</label>
+    <input type="number" id="level" min="0" value="0" />
+
+    <label for="weight">Weight in kg (K):</label>
+    <input type="number" id="weight" min="0" step="0.1" value="1" />
+
+    <button onclick="calculateDPS()">Calculate DPS</button>
+
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    function calculateDPS() {
+      const plantP = parseFloat(document.getElementById("plant").value);
+      const L = parseFloat(document.getElementById("level").value);
+      const K = parseFloat(document.getElementById("weight").value);
+
+      if (isNaN(L) || isNaN(K)) {
+        document.getElementById("result").textContent = "Please enter valid numbers for level and weight.";
+        return;
+      }
+
+      const DPS = plantP * K * Math.pow(1.48, L);
+      document.getElementById("result").textContent = `🌟 DPS: ${DPS.toFixed(2)}`;
+    }
+  </script>
+</body>
+</html>
